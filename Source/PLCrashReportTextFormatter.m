@@ -40,7 +40,7 @@
 #ifndef CPU_SUBTYPE_ARM_V7S
 # define CPU_SUBTYPE_ARM_V7S 11
 #elif !TARGET_OS_IPHONE
-# error CPU_SUBTYPE_ARM_V7S is now defined by the SDK. Please remove this define.
+//# error CPU_SUBTYPE_ARM_V7S is now defined by the SDK. Please remove this define.
 #endif
 
 

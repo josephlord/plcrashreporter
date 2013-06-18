@@ -705,10 +705,10 @@ static void populate_nserror (NSError **error, PLCrashReporterError code, NSStri
         return;
     
     /* Create the userInfo dictionary */
-    userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+    userInfo = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
                 description, NSLocalizedDescriptionKey,
                 nil
-                ];
+                ]];
     
     *error = [NSError errorWithDomain: PLCrashReporterErrorDomain code: code userInfo: userInfo];
 }
