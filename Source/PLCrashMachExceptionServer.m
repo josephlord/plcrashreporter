@@ -261,9 +261,9 @@ static void set_exception_ports (task_t task, thread_t thread, exception_mask_t 
     /* Reset any remaining exception types that were not handled above. */
     if (remaining_mask != 0) {
         if (thread == MACH_PORT_NULL)
-            kr = task_set_exception_ports(task, remaining_mask, MACH_PORT_NULL, EXCEPTION_STATE_IDENTITY, MACHINE_THREAD_STATE);
+            task_set_exception_ports(task, remaining_mask, MACH_PORT_NULL, EXCEPTION_STATE_IDENTITY, MACHINE_THREAD_STATE);
         else
-            kr = thread_set_exception_ports(thread, remaining_mask, MACH_PORT_NULL, EXCEPTION_STATE_IDENTITY, MACHINE_THREAD_STATE);
+            thread_set_exception_ports(thread, remaining_mask, MACH_PORT_NULL, EXCEPTION_STATE_IDENTITY, MACHINE_THREAD_STATE);
     }
 }
 

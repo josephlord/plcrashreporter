@@ -175,6 +175,9 @@ struct pl_objc2_list_header {
  * @return The index.
  */
 static size_t cache_index (plcrash_async_objc_cache_t *context, pl_vm_address_t key) {
+    if (context->classCacheSize == 0) {
+        return 0;
+    }
     return (key >> 2) % context->classCacheSize;
 }
 

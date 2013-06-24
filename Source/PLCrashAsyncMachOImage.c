@@ -459,17 +459,29 @@ plcrash_error_t plcrash_async_macho_map_section (plcrash_async_macho_t *image, c
             cursor += sizeof(*sect_32);
         }
         
-        const char *image_sectname = image->m64 ? sect_64->sectname : sect_32->sectname;
+        const char *image_sectname;
+            if(image->m64)
+                image_sectname = sect_64->sectname;
+            else
+                image_sectname = sect_32->sectname;
         if (plcrash_async_strncmp(sectname, image_sectname, sizeof(sect_64->sectname)) == 0) {
             /* Calculate the in-memory address and size */
             pl_vm_address_t sectaddr;
             pl_vm_size_t sectsize;
             if (image->m64) {
-                sectaddr = image->swap64(sect_64->addr) + image->vmaddr_slide;
-                sectsize = image->swap32(sect_64->size);
+                if (sect_64) { // This "if" is unnecessary - Xcode Analyser can't understand the way the 32 and 64bit are split in this method.
+                    sectaddr = image->swap64(sect_64->addr) + image->vmaddr_slide;
+                    sectsize = image->swap32(sect_64->size);
+                }
+                else
+                    sectaddr = sectsize = 0;
             } else {
-                sectaddr = image->swap32(sect_32->addr) + image->vmaddr_slide;
-                sectsize = image->swap32(sect_32->size);
+                if (sect_32) {
+                    sectaddr = image->swap32(sect_32->addr) + image->vmaddr_slide;
+                    sectsize = image->swap32(sect_32->size);
+                }
+                else
+                    sectaddr = sectsize = 0;
             }
             
             
