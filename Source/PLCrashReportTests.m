@@ -121,6 +121,9 @@
     PLCrashReport *crashLog = [[[PLCrashReport alloc] initWithData: [NSData dataWithContentsOfMappedFile: _logPath] error: &error] autorelease];
     STAssertNotNil(crashLog, @"Could not decode crash log: %@", error);
 
+    /* Report info */
+    STAssertNotNULL(crashLog.uuidRef, @"No report UUID");
+    
     /* System info */
     STAssertNotNil(crashLog.systemInfo, @"No system information available");
     STAssertNotNil(crashLog.systemInfo.operatingSystemVersion, @"OS version is nil");
